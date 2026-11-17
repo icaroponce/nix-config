@@ -25,6 +25,11 @@ in
     };
   };
 
+  # tty1 logs icaro in without asking, once per boot (the LUKS passphrase is the boot login);
+  # .zprofile then runs startx. Other ttys and later logins ask for user + password.
+  services.getty.autologinUser = "icaro";
+  services.getty.autologinOnce = true;
+
   services.libinput.enable = true; # touchpad
 
   # PAM entry for i3lock (used by i3lock-fancy-rapid); without it no password is accepted.
