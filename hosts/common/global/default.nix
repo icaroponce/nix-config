@@ -27,7 +27,6 @@
   environment.systemPackages = with pkgs; [
     git
     gh # GitHub CLI (also git's HTTPS credentials)
-    neovim
     stow # links ~/dotfiles into ~
     curl
     wget
@@ -38,6 +37,9 @@
     claude-code
     nodejs # runs the claude-hud status line
   ];
+
+  # Runs prebuilt Linux binaries (npm/pip native binaries, rustup...) that expect /lib64/ld-linux.
+  programs.nix-ld.enable = true;
 
   environment.variables.EDITOR = "nvim";
 }

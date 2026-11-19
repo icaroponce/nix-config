@@ -1,7 +1,10 @@
 # User config shared by all machines (platform-neutral). App configs come from dotfiles via stow.
 { pkgs, inputs, ... }:
 {
-  imports = [ inputs.nix-index-database.homeModules.nix-index ];
+  imports = [
+    inputs.nix-index-database.homeModules.nix-index
+    ./dev.nix
+  ];
 
   home.username = "icaro";
 
@@ -23,7 +26,6 @@
     glow # markdown viewer
     just # command runner (justfiles)
     python3
-    direnv # per-project env from .envrc
   ];
 
   # `, <program>` runs any nixpkgs program without installing it.
