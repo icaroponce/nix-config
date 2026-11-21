@@ -1,5 +1,5 @@
 # Monitor profiles. xmonad runs `autorandr --change` on start and on every monitor change.
-{ ... }:
+{ pkgs, ... }:
 let
   # EDIDs from `autorandr --fingerprint`
   laptop = "00ffffffffffff0006af3d130000000026170104951f11780287e5a456509e260d505400000001010101010101010101010101010101143780b87038244010103e0035ad100000180000000f0000000000000000000000000020000000fe0041554f0a202020202020202020000000fe004231343048414e30312e33200a007a";
@@ -8,6 +8,9 @@ in
 {
   programs.autorandr = {
     enable = true;
+
+    # Repaint the wallpaper for the new screen size (.xinitrc paints it before the switch).
+    hooks.postswitch.wallpaper = "${pkgs.feh}/bin/feh --no-fehbg --bg-fill ~/dotfiles/wallpapers/solar-system.jpg";
 
     profiles = {
       # Laptop alone.

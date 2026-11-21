@@ -40,9 +40,20 @@
         name = "icaroponce";
         email = "ponceicaro@gmail.com";
       };
+      pull.rebase = true; # rebase local commits on pull instead of merge commits
+      rebase.autoStash = true; # stash/unstash uncommitted changes around a rebase
+      push.default = "current"; # push to the same-named remote branch, creating it if needed
+      diff.algorithm = "histogram"; # more readable diffs
+      rerere.enabled = true; # reuse recorded conflict resolutions
       # GitHub HTTPS auth through gh.
-      credential."https://github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
-      credential."https://gist.github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
+      credential."https://github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      credential."https://gist.github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
     };
   };
   # git diffs through delta.

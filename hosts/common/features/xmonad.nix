@@ -70,4 +70,7 @@ in
     noto-fonts-color-emoji # emoji in apps
     nerd-fonts.liberation # kitty (LiterationMono Nerd Font)
   ];
+
+  # Settings store for GTK apps (home-manager writes the dark color scheme into it).
+  programs.dconf.enable = true;
 }
