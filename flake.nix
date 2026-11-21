@@ -50,6 +50,12 @@
         modules = [ ./home/icaro/t450s.nix ];
       };
 
+      # New project: `nix flake init -t ~/nix-config#haskell` (or zsh `new-hs <name>`).
+      templates.haskell = {
+        path = ./templates/haskell;
+        description = "Haskell project: cabal + GHC/HLS from nixpkgs, direnv, fourmolu, justfile";
+      };
+
       formatter.x86_64-linux = (pkgsFor "x86_64-linux").nixfmt-rfc-style;
     };
 }

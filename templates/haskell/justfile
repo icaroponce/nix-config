@@ -1,0 +1,44 @@
+# Haskell project: task runner (https://github.com/casey/just)
+# Usage: just <recipe>
+
+default: build
+
+# Build the project
+build:
+    cabal build
+
+# Rebuild on every change (ghcid)
+watch:
+    ghcid --command "cabal repl"
+
+# Run the executable
+run *args:
+    cabal run -v0 -- {{args}}
+
+# Launch GHCi repl
+repl:
+    cabal repl
+
+# Run the test suite
+test:
+    cabal test
+
+# Format source files in-place
+format:
+    fourmolu --mode inplace src app test
+
+# Check formatting without modifying files
+format-check:
+    fourmolu --mode check src app test
+
+# Lint with HLint
+lint:
+    hlint src app test
+
+# Build with all warnings as errors
+check:
+    cabal build --ghc-options=-Werror
+
+# Remove build artifacts
+clean:
+    cabal clean
