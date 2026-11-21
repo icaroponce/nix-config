@@ -73,4 +73,11 @@ in
 
   # Settings store for GTK apps (home-manager writes the dark color scheme into it).
   programs.dconf.enable = true;
+
+  # Desktop portal: GTK4/libadwaita apps read the dark color scheme through it; also file pickers.
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "gtk";
+  };
 }

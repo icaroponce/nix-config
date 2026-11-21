@@ -22,6 +22,7 @@
     STOP_CHARGE_THRESH_BAT0 = 80;
     START_CHARGE_THRESH_BAT1 = 75;
     STOP_CHARGE_THRESH_BAT1 = 80;
+    USB_EXCLUDE_BTUSB = 1; # no USB autosuspend for the Bluetooth chip (BLE keyboard/mouse drops)
   };
 
   # Lid closed (no external monitor): suspend; systemd hibernates later only if the battery
