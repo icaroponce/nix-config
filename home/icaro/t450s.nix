@@ -42,6 +42,9 @@
   # GTK4/libadwaita apps follow this instead of the theme.
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
+  # CUPS user defaults: A4 (the printer itself reports Letter).
+  home.file.".cups/lpoptions".text = "Default LaserJet_M12w PageSize=A4\n";
+
   # Writes ~/.Xresources (merged by .xinitrc).
   xresources.properties."Xft.dpi" = 112;
 

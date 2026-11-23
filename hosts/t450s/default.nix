@@ -8,6 +8,7 @@
     ../common/features/xmonad.nix
     ../common/features/audio.nix
     ../common/features/docker.nix
+    ../common/features/printing.nix
   ];
 
   networking.hostName = "t450s";
