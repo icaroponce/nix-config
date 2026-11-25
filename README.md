@@ -1,16 +1,17 @@
 # nix-config
 
-NixOS + home-manager config for a ThinkPad T450s running xmonad.
+NixOS + home-manager config for a ThinkPad T450s running xmonad, and home-manager on macOS.
 
 ```
-flake.nix               nixosConfigurations.t450s + homeConfigurations."icaro@t450s"
+flake.nix               nixosConfigurations.t450s + homeConfigurations."icaro@t450s" / "icaro@mac"
 hosts/common/global/    every machine: boot, nix, network, locale, base packages
-hosts/common/features/  optional pieces: xmonad, audio, docker
+hosts/common/features/  optional pieces: xmonad, audio, docker, printing
 hosts/common/users/     user accounts
 hosts/t450s/            host: disk layout (fs.nix), generated hardware config
 home/icaro/common.nix   user packages shared by all machines
 home/icaro/dev.nix      dev tools: direnv + nix-direnv, neovim with LSPs and treesitter grammars
 home/icaro/t450s.nix    per-machine user packages, monitors, fastfetch
+home/icaro/mac.nix      macOS (Apple Silicon); GUI apps stay in Homebrew
 templates/haskell/      project template: cabal + GHC/HLS from nixpkgs, direnv, justfile
 ```
 
@@ -27,6 +28,9 @@ nh home switch      # home-manager switch --flake .#icaro@t450s
 nh os switch -u     # update flake.lock first
 nh clean all -k 5   # drop old generations
 ```
+
+macOS: `nix run home-manager -- switch --flake .#icaro@mac` the first time, then
+`home-manager switch --flake .#icaro@mac`.
 
 Flakes only see files tracked by git: `git add` new files before rebuilding.
 

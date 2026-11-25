@@ -30,6 +30,10 @@
           inherit system;
           config.allowUnfree = true;
         };
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
     in
     {
       # sudo nixos-rebuild switch --flake .#t450s
@@ -50,12 +54,19 @@
         modules = [ ./home/icaro/t450s.nix ];
       };
 
+      # macOS (Apple Silicon): home-manager switch --flake .#icaro@mac
+      homeConfigurations."icaro@mac" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsFor "aarch64-darwin";
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./home/icaro/mac.nix ];
+      };
+
       # New project: `nix flake init -t ~/nix-config#haskell` (or zsh `new-hs <name>`).
       templates.haskell = {
         path = ./templates/haskell;
         description = "Haskell project: cabal + GHC/HLS from nixpkgs, direnv, fourmolu, justfile";
       };
 
-      formatter.x86_64-linux = (pkgsFor "x86_64-linux").nixfmt-rfc-style;
+      formatter = nixpkgs.lib.genAttrs systems (system: (pkgsFor system).nixfmt);
     };
 }
