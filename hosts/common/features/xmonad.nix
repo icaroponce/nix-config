@@ -41,7 +41,7 @@ in
     kitty # terminal
     brave # browser
     # Spawned by xmonad.hs / .xinitrc
-    rofi # launcher, window switcher
+    (rofi.override { plugins = [ rofi-calc ]; }) # launcher, window switcher, calculator
     haskellPackages.greenclip # clipboard history (Super+c)
     dunst # notifications
     picom # compositor (transparency, shadows)
