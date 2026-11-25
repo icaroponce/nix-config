@@ -4,6 +4,7 @@
     ./common.nix
     ./autorandr.nix
     ./fastfetch.nix
+    ./anki.nix
   ];
 
   home.homeDirectory = "/home/icaro";
@@ -12,7 +13,6 @@
   home.packages = with pkgs; [
     zathura # PDF viewer
     mpv # video/audio player
-    anki # flashcards
     galculator # calculator
     thunar # graphical file manager
     pwvucontrol # PipeWire volume mixer
@@ -20,6 +20,7 @@
 
   # Mouse cursor: ~/.icons/default (X and GTK apps) + Xcursor.* in ~/.Xresources.
   home.pointerCursor = {
+    enable = true;
     package = pkgs.capitaine-cursors;
     name = "capitaine-cursors-white";
     size = 24;
