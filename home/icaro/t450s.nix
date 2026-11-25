@@ -5,6 +5,7 @@
     ./autorandr.nix
     ./fastfetch.nix
     ./anki.nix
+    ./mimeapps.nix
   ];
 
   home.homeDirectory = "/home/icaro";
@@ -12,6 +13,7 @@
   # Linux desktop apps; portable CLI tools go in common.nix.
   home.packages = with pkgs; [
     zathura # PDF viewer
+    nsxiv # image viewer
     mpv # video/audio player
     galculator # calculator
     thunar # graphical file manager
