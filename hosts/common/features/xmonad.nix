@@ -58,6 +58,7 @@ in
     brightnessctl # brightness keys
     stalonetray # system tray
     xclip # clipboard from the CLI
+    xmessage # xmonad shows its compile errors with it
   ];
 
   # Font for apps asking for "monospace"; sans/serif stay DejaVu.
