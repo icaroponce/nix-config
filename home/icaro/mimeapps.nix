@@ -1,24 +1,12 @@
-# Default apps for xdg-open, Brave downloads, Thunar... (writes ~/.config/mimeapps.list).
-{ lib, ... }:
+# Default apps (writes ~/.config/mimeapps.list). xdg-open is replaced by `gio open`, so the
+# shell, Brave and Thunar all use GIO: subtypes fall back to their parent (lua, nix... -> text/plain)
+# and Terminal=true apps (nvim, yazi) open in kitty via xdg-terminal-exec.
+{ lib, pkgs, ... }:
 let
   # mime types -> one desktop file
   assign = desktop: types: lib.genAttrs types (_: desktop);
 in
 {
-  # Terminal apps opened from GUI programs (hidden from the launcher).
-  xdg.desktopEntries = {
-    nvim-kitty = {
-      name = "Neovim (kitty)";
-      exec = "kitty -e nvim %F";
-      noDisplay = true;
-    };
-    yazi-kitty = {
-      name = "yazi (kitty)";
-      exec = "kitty -e yazi %f";
-      noDisplay = true;
-    };
-  };
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications =
@@ -70,18 +58,8 @@ in
         "x-scheme-handler/http"
         "x-scheme-handler/https"
       ]
-      // assign "nvim-kitty.desktop" [
-        "text/plain"
-        "text/markdown"
-        "text/x-python"
-        "text/x-haskell"
-        "text/x-shellscript"
-        "application/x-shellscript"
-        "application/json"
-        "application/x-yaml"
-        "application/toml"
-      ]
-      // assign "yazi-kitty.desktop" [
+      // assign "nvim.desktop" [ "text/plain" ] # every text type falls back to it
+      // assign "yazi.desktop" [
         "inode/directory"
         "application/zip" # opens yazi on the archive (extract there or with `ouch d`)
       ]
@@ -89,6 +67,13 @@ in
         "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop"; # Claude Code login links
       };
   };
+
+  home.packages = [
+    (pkgs.writeShellScriptBin "xdg-open" ''exec ${pkgs.glib.bin}/bin/gio open "$@"'')
+    pkgs.xdg-terminal-exec # GIO runs Terminal=true apps with it
+  ];
+  xdg.configFile."xdg-terminals.list".text = "kitty.desktop\n";
+
   # Apps sometimes write their own mimeapps.list; replace it instead of failing the switch.
   xdg.configFile."mimeapps.list".force = true;
 }
