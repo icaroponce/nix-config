@@ -60,11 +60,10 @@ in
     withRuby = false;
     withPython3 = false;
     extraPackages = with pkgs; [
-      # Language servers (nvim-lspconfig, haskell-tools)
+      # Language servers (nvim-lspconfig)
       python3Packages.python-lsp-server # pylsp
       vscode-langservers-extracted # eslint
       nixd # nix
-      haskell-language-server # built for the default GHC = xmonadGhc's
       # Formatters / linters (conform, nvim-lint)
       stylua
       prettier

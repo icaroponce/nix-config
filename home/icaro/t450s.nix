@@ -20,6 +20,10 @@
     pwvucontrol # PipeWire volume mixer
   ];
 
+  # Haskell LSP for nvim (haskell-tools) outside project flakes; pulls in a full GHC, so not shared.
+  # Built for the default GHC = xmonadGhc's (xmonad.hs, xmobar.hs).
+  programs.neovim.extraPackages = [ pkgs.haskell-language-server ];
+
   # Mouse cursor: ~/.icons/default (X and GTK apps) + Xcursor.* in ~/.Xresources.
   home.pointerCursor = {
     enable = true;
