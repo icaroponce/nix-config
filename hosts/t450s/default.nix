@@ -24,6 +24,7 @@
     START_CHARGE_THRESH_BAT1 = 75;
     STOP_CHARGE_THRESH_BAT1 = 80;
     USB_EXCLUDE_BTUSB = 1; # no USB autosuspend for the Bluetooth chip (BLE keyboard/mouse drops)
+    DEVICES_TO_DISABLE_ON_STARTUP = "wwan"; # unused LTE modem (Sierra EM7345); `tlp wwan on` to use it
   };
 
   # Lid closed (no external monitor): suspend; systemd hibernates later only if the battery
