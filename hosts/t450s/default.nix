@@ -27,6 +27,11 @@
     DEVICES_TO_DISABLE_ON_STARTUP = "wwan"; # unused LTE modem (Sierra EM7345); `tlp wwan on` to use it
   };
 
+  # Internal Intel Bluetooth (8087:0a2a) off: BLE devices drop; the TP-Link UB600 dongle replaces it.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0a2a", ATTR{authorized}="0"
+  '';
+
   # Lid closed (no external monitor): suspend; systemd hibernates later only if the battery
   # would run low (no HibernateDelaySec = battery-based). With a monitor connected: ignored.
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
